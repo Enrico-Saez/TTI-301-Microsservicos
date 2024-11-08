@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: classificacao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: classificacao
+  template:
+    metadata:
+      labels:
+        app: classificacao
+    spec:
+      containers:
+        - name: classificacao-container
+          image: enrico/classificacao:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BARRAMENTO_URL
+              value: "http://barramento:3000"

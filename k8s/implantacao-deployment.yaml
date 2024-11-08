@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: implantacao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: implantacao
+  template:
+    metadata:
+      labels:
+        app: implantacao
+    spec:
+      containers:
+        - name: implantacao-container
+          image: enrico/implantacao:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BARRAMENTO_URL
+              value: "http://barramento:3000"

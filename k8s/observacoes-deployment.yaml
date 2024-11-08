@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: observacoes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: observacoes
+  template:
+    metadata:
+      labels:
+        app: observacoes
+    spec:
+      containers:
+        - name: observacoes-container
+          image: enrico/observacoes:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BARRAMENTO_URL
+              value: "http://barramento:3000"
