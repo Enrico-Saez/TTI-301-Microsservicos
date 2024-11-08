@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  barramento:
+    build: ./barramento
+    container_name: barramento-service
+    ports:
+      - "3001:3000"
+    networks:
+      - microsservicos
+
+  classificacao:
+    build: ./classificacao
+    container_name: classificacao-service
+    ports:
+      - "3002:3000"
+    networks:
+      - microsservicos
+    depends_on:
+      - barramento
+
+  consulta:
+    build: ./consulta
+    container_name: consulta-service
+    ports:
+      - "3003:3000"
+    networks:
+      - microsservicos
+    depends_on:
+      - barramento
+
+  implantacao:
+    build: ./implantacao
+    container_name: implantacao-service
+    ports:
+      - "3004:3000"
+    networks:
+      - microsservicos
+    depends_on:
+      - barramento
+
+  lembretes:
+    build: ./lembretes
+    container_name: lembretes-service
+    ports:
+      - "3005:3000"
+    networks:
+      - microsservicos
+    depends_on:
+      - barramento
+
+networks:
+  microsservicos:
+    driver: bridge
